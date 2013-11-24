@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 
 class Nip_Model extends CI_Model {
 	protected $className;
@@ -6,13 +6,17 @@ class Nip_Model extends CI_Model {
 	protected $primary;
 
 	protected $softDeletes = FALSE;
+	protected $justTrash = FALSE;
 	protected $timestamps = TRUE;
 
 	protected $validator = array();
 	protected $messageArray = array();
 	protected $messageString;
 
-	protected $justTrash = FALSE;
+	protected $createdField = "created";
+	protected $updatedField = "updated";
+	protected $deletedField = "deleted";
+	
 	
 	public function __construct($options = array()){
 		parent::__construct();
@@ -36,9 +40,9 @@ class Nip_Model extends CI_Model {
 	
 	public function first($where = NULL, $fields = NULL){
 		if($this->softDeletes){
-			$this->db->where("deleted IS NULL");
+			$this->db->where("{$this->deletedField} IS NULL");
 		}else if($this->justTrash){
-			$this->db->where("deleted IS NOT NULL");
+			$this->db->where("{$this->deletedField} IS NOT NULL");
 		}
 		
 		if($where){
@@ -50,7 +54,7 @@ class Nip_Model extends CI_Model {
 		}
 		if($fields){
 			if(is_array($fields)){
-				$this->db->select(implode(',', $fields));
+				$this->db->select(implode(",", $fields));
 			}else if(is_string($fields)){
 				$this->db->select($fields);
 			}
@@ -72,16 +76,16 @@ class Nip_Model extends CI_Model {
 	
 		if($fields){
 			if(is_array($fields)){
-				$this->db->select(implode(',', $fields));
+				$this->db->select(implode(",", $fields));
 			}else if(is_string($fields)){
 				$this->db->select($fields);
 			}
 		}
 		
 		if($this->softDeletes){
-			$this->db->where("deleted IS NULL");
+			$this->db->where("{$this->deletedField} IS NULL");
 		}else if($this->justTrash){
-			$this->db->where("deleted IS NOT NULL");
+			$this->db->where("{$this->deletedField} IS NOT NULL");
 		}
 
 		if($where){
@@ -113,9 +117,9 @@ class Nip_Model extends CI_Model {
 	
 	public function count($where = NULL){
 		if($this->softDeletes){
-			$this->db->where("deleted IS NULL");
+			$this->db->where("{$this->deletedField} IS NULL");
 		}else if($this->justTrash){
-			$this->db->where("deleted IS NOT NULL");
+			$this->db->where("{$this->deletedField} IS NOT NULL");
 		}
 
 		if($where){
@@ -129,7 +133,7 @@ class Nip_Model extends CI_Model {
 			$this->db->where(array($this->primary => $this->{$this->primary}));
 			
 			if($this->timestamps){
-				$this->updated = date("Y-m-d H:i:s");
+				$this->{$this->updatedField} = date("Y-m-d H:i:s");
 			}
 
 			return $this->db->update($this->tableName, $this);
@@ -137,7 +141,7 @@ class Nip_Model extends CI_Model {
 			$this->{$this->primary} = $this->getLastId();
 			
 			if($this->timestamps){
-				$this->created = date("Y-m-d H:i:s");
+				$this->{$this->createdField} = date("Y-m-d H:i:s");
 			}
 			
 			return $this->db->insert($this->tableName, $this);
@@ -159,11 +163,11 @@ class Nip_Model extends CI_Model {
 				}else if(is_array($where)){
 					$this->db->where($where);
 				}
-				return $this->db->update($this->tableName, array('deleted' => date("Y-m-d H:i:s")));
+				return $this->db->update($this->tableName, array("{$this->deletedField}" => date("Y-m-d H:i:s")));
 			}else{
 				if($this->{$this->primary}){
 					$this->db->where(array($this->primary => $this->{$this->primary}));
-					return $this->db->update($this->tableName, array('deleted' => date("Y-m-d H:i:s")));
+					return $this->db->update($this->tableName, array("{$this->deletedField}" => date("Y-m-d H:i:s")));
 				}
 			}
 		}else{
@@ -198,11 +202,11 @@ class Nip_Model extends CI_Model {
 			}else if(is_array($where)){
 				$this->db->where($where);
 			}
-			return $this->db->update($this->tableName, array('deleted' => NULL));
+			return $this->db->update($this->tableName, array("{$this->deletedField}" => NULL));
 		}else{
 			if($this->{$this->primary}){
 				$this->db->where(array($this->primary => $this->{$this->primary}));
-				return $this->db->update($this->tableName, array('deleted' => NULL));
+				return $this->db->update($this->tableName, array("{$this->deletedField}" => NULL));
 			}
 		}
 
@@ -211,7 +215,7 @@ class Nip_Model extends CI_Model {
 
 	public function validate(){
 		if(!empty($this->validator)){
-			$this->load->library('form_validation');
+			$this->load->library("form_validation");
 			$conf = $this->getConf();
 			$this->form_validation->set_rules($conf);
 			
@@ -243,9 +247,9 @@ class Nip_Model extends CI_Model {
 		$conf = array();
 
 		foreach ($this->validator as $field => $rules) {
-			$temp['field'] = $field;
-			$temp['rules'] = $rules;
-			$temp['label'] = $this->label[$field]?$this->label[$field]:"fields";
+			$temp["field"] = $field;
+			$temp["rules"] = $rules;
+			$temp["label"] = $this->label[$field]?$this->label[$field]:"fields";
 
 			$conf[] = $temp;
 		}
