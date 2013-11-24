@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Nip-igniter : Crud Generator For Codeigniter Framework" />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Nip-igniter</title>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Nip-igniter by amrew</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/amrew/nip-igniter">View on GitHub</a>
-
-          <h1 id="project_title">Nip-igniter</h1>
-          <h2 id="project_tagline">Crud Generator For Codeigniter Framework</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/amrew/nip-igniter/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/amrew/nip-igniter/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>Nip-igniter</h1>
+          <h2>Crud Generator For Codeigniter Framework</h2>
         </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/amrew/nip-igniter/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/amrew/nip-igniter/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/amrew/nip-igniter" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
 <a name="welcome-to-nipigniter" class="anchor" href="#welcome-to-nipigniter"><span class="octicon octicon-link"></span></a>Welcome to NipIgniter.</h1>
-
-<p><a href="https://github.com/amrew/nip-igniter">Project On Github</a></p>
 
 <p>Hello, teman-teman programmer Codeigniter Framework.</p>
 
@@ -100,7 +98,7 @@ nama tabel harus direkomendasikan menggunakan huruf kecil, jika lebih dari satu 
 <h4>
 <a name="5-finish" class="anchor" href="#5-finish"><span class="octicon octicon-link"></span></a>5). Finish</h4>
 
-<p>Selesai, silahkan menuju alamat url /mahasiswa dan /program-studi.
+<p>Selesai, silahkan menuju alamat url /mahasiswa dan /program-studi. URL sesuai dengan nama controller, hurufnya kecil semua dipisahkan ama tanda (-) strip, tapi kata controller tidak disertakan.
 Untuk lebih jelasnya silahkan baca beberapa style perubahan yang ada di NipIgniter.</p>
 
 <hr><h3>
@@ -109,7 +107,10 @@ Untuk lebih jelasnya silahkan baca beberapa style perubahan yang ada di NipIgnit
 <p>Setelah mengetahui fitur CRUD, ada baiknya kita mengetahui juga beberapa perubahan style yang ada di NipIgniter.</p>
 
 <h3>
-<a name="1-controller" class="anchor" href="#1-controller"><span class="octicon octicon-link"></span></a>1. Controller</h3>
+<a name="1-controller-dan-view" class="anchor" href="#1-controller-dan-view"><span class="octicon octicon-link"></span></a>1. Controller dan View</h3>
+
+<h4>
+<a name="penamaan" class="anchor" href="#penamaan"><span class="octicon octicon-link"></span></a>Penamaan</h4>
 
 <p>Penamaan controller sedikit diketatkan di NipIgniter. Aturannya adalah penamaan controller menggunakan camel case. Huruf depan besar, jika lebih dari dua kata maka digabung tanpa menggunakan spasi, kata kedua dan seterusnya dimulai dengan huruf besar. Akhiran diberi kata Controller. Berikut adalah contoh penamaan controller, file, dan penulisan URLnya.</p>
 
@@ -128,19 +129,81 @@ Untuk lebih jelasnya silahkan baca beberapa style perubahan yang ada di NipIgnit
 <pre><code>/user, /program-studi, /jenis-kelamin
 </code></pre>
 
-<p>Bersambung...</p>
-      </section>
+<p>untuk penulisan method pada controller sebagai berikut</p>
+
+<p>Method :</p>
+
+<pre><code>getUserByName()
+listArtikel()
+komentar()
+</code></pre>
+
+<p>URL :</p>
+
+<pre><code>get-user-by-name
+list-artikel
+komentar
+</code></pre>
+
+<p>Parameter pada URL tidak ada perubahan, stylenya seperti biasa.</p>
+
+<h4>
+<a name="layout" class="anchor" href="#layout"><span class="octicon octicon-link"></span></a>Layout</h4>
+
+<p>NipIgniter menggunakan templating sederhana. Menggunakan 2 buah view. View pertama dinamakan 'layout', kemudian view yang kedua dinamakan 'partial'. Ada 2 buah method yang menggantikan cara lama dalam menampilkan view.</p>
+
+<pre><code>$this-&gt;load-&gt;view('nama_view', $data);
+</code></pre>
+
+<p>diganti :</p>
+
+<pre><code>$this-&gt;render('nama_view', $data);
+</code></pre>
+
+<p>atau</p>
+
+<pre><code>$this-&gt;renderPartial('nama_view', $data);
+</code></pre>
+
+<p>Method render() membutuhkan file yang akan menjadi induk dari file partial yang akan ditampilkan.
+Layout yang menjadi induk path-nya secara default mengacu pada file application/views/layout/main.php.
+Definisi path layout dapat diubah berdasar variable $this-&gt;pageLayout = "layout/main".</p>
+
+<p>Method renderPartial() langsung menampilkan view yang dituju. 
+Method ini fungsinya sama dengan $this-&gt;load-&gt;view().</p>
+
+<p>Mudahnya gini sebagai contoh, view dengan nama 'edit_user' di masukkan ke dalam view dengan nama 'main' (sebagai layout). Bagi teman-teman yang pernah menggunakan framework lain seperti yii atau laravel, mungkin sudah familiar, karna memang konsepnya meniru mereka.</p>
+
+<h4>
+<a name="view" class="anchor" href="#view"><span class="octicon octicon-link"></span></a>View</h4>
+
+<p>Di controller juga terdapat variable $this-&gt;view; yang isinya adalah string 'controller/method' sesuai dengan URL. Disini saya menghimbau agar penamaan view sesuai dengan controller dan method yang di akses.</p>
+
+<p>Contohnya :</p>
+
+<pre><code>UserController dengan method index()
+AdminUtamaController dengan method kelolaUser()
+</code></pre>
+
+<p>view-nya adalah</p>
+
+<pre><code>user/index.php
+admin-utama/kelola-user.php
+</code></pre>
+
+<p>Jika mengikuti style ini maka dengan mudah dapat dilakukan perenderan view dengan cara </p>
+
+<pre><code>$this-&gt;render($this-&gt;view);
+</code></pre>
+        </section>
+
+        <footer>
+          Nip-igniter is maintained by <a href="https://github.com/amrew">amrew</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Nip-igniter maintained by <a href="https://github.com/amrew">amrew</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
