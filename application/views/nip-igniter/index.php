@@ -1,3 +1,21 @@
+<?php if(!is_writable(APPPATH."controllers")):?>
+<div class="alert alert-danger">
+	Directory application/controllers is not writeable. Please change permission to 777.
+</div>
+<?php endif;?>
+
+<?php if(!is_writable(APPPATH."models")):?>
+<div class="alert alert-danger">
+	Directory application/models is not writeable. Please change permission to 777.
+</div>
+<?php endif;?>
+
+<?php if(!is_writable(APPPATH."views")):?>
+<div class="alert alert-danger">
+	Directory application/views is not writeable. Please change permission to 777.
+</div>
+<?php endif;?>
+
 <div class="row">
 	<div class="col-lg-4">
 		<h1>Model Generator</h1>
