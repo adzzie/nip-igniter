@@ -27,6 +27,16 @@ class Nip_Model extends CI_Model {
 	public function __toString(){
 		return $this->className;
 	}
+
+	public function __get($key)
+	{
+		$method = "get".ucfirst($key);
+		if(method_exists($this, $method)){
+			return $this->$method();
+		}else{
+			return parent::__get($key);
+		}
+	}
 	
 	public function attr($attributes = array()){
 		if(is_array($attributes)){
@@ -271,5 +281,57 @@ class Nip_Model extends CI_Model {
 		$this->softDeletes = FALSE;
 		$this->justTrash = FALSE;
 		return $this;	
+	}
+
+	public function getPrimary(){
+		return $this->primary;
+	}
+
+	public function getClassName(){
+		return $this->className;
+	}
+
+	public function belongsTo($modelName = NULL, $foreignKey = NULL){
+		if($modelName){
+			if(is_null($foreignKey)){
+				$foreignKey = getStrippedClass($modelName)."_id";
+			}
+			
+			$ci =& get_instance();
+			$ci->load->model($modelName);
+
+			$row = $ci->{$modelName}->first($this->{$foreignKey});
+			return $row;
+		}
+		return NULL;
+	}
+
+	public function hasOne($modelName = NULL, $foreignKey = NULL ){
+		if($modelName){
+			if(is_null($foreignKey)){
+				$foreignKey = getStrippedClass($this->className)."_id";
+			}
+
+			$ci =& get_instance();
+			$ci->load->model($modelName);
+
+			$row = $ci->{$modelName}->first(array($foreignKey => $this->{$this->primary}));
+			return $row;
+		}
+		return NULL;
+	}
+
+	public function hasMany($modelName = NULL, $foreignKey = NULL ){
+		if($modelName){
+			if(is_null($foreignKey)){
+				$foreignKey = getStrippedClass($this->className)."_id";
+			}
+			$ci =& get_instance();
+			$ci->load->model($modelName);
+
+			$array = $ci->{$modelName}->all(array($foreignKey => $this->{$this->primary}));
+			return $array;
+		}
+		return NULL;
 	}
 }
