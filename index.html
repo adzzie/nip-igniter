@@ -31,8 +31,8 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h2>
-<a name="welcome-to-nipigniter" class="anchor" href="#welcome-to-nipigniter"><span class="octicon octicon-link"></span></a>Welcome to NipIgniter.</h2>
+        <h1>
+<a name="welcome-to-nipigniter" class="anchor" href="#welcome-to-nipigniter"><span class="octicon octicon-link"></span></a>Welcome to NipIgniter.</h1>
 
 <p>Hello, teman-teman programmer Codeigniter Framework.</p>
 
@@ -43,16 +43,80 @@ Salah satu fitur tambahannya adalah model ORM yang sekarang digunakan oleh banya
 
 <p>Fitur penting yang ingin disajikan adalah generator CRUD. Kalau teman-teman pernah menggunakan Yii, pastinya fitur ini sudah familiar. Fitur ini men-generate table yang ada di database. Table tersebut dijadikan sebagai model, dan kemudian dari model yang terbentuk dibuatlah fungsi CRUD.</p>
 
-<p>Oke langsung saja. Sebelum menuju fitur CRUD, ada baiknya kita mengetahui dulu beberapa perubahan style yang ada di NipIgniter.</p>
+<p>Oke langsung saja. Langkah-langkah menggunakan Fitur CRUD adalah sebagai berikut.</p>
+
+<h2>
+<a name="crud-generator" class="anchor" href="#crud-generator"><span class="octicon octicon-link"></span></a>CRUD Generator</h2>
+
+<h4>
+<a name="1-pertama-kali-memasuki-halaman-utama-akan-terlihat-halaman-berikut" class="anchor" href="#1-pertama-kali-memasuki-halaman-utama-akan-terlihat-halaman-berikut"><span class="octicon octicon-link"></span></a>1). Pertama kali memasuki halaman utama, akan terlihat halaman berikut</h4>
+
+<p><img src="http://i44.tinypic.com/ei2vdy.jpg" alt="Home Page NipIgniter Image"></p>
+
+<p>Hanya ada 2 inputan di form. Inputan pertama adalah nama tabel di database,
+nama tabel harus direkomendasikan menggunakan huruf kecil, jika lebih dari satu kata maka digabungkan menggunakan _ (underscore).</p>
+
+<pre><code>user, jenis_kelamin, artikel, kategori_artikel
+</code></pre>
+
+<h4>
+<a name="2-contoh-tabel-yang-akan-di-generate" class="anchor" href="#2-contoh-tabel-yang-akan-di-generate"><span class="octicon octicon-link"></span></a>2). Contoh Tabel yang akan di generate</h4>
+
+<p><img src="http://i39.tinypic.com/25i7pmf.jpg" alt="Table For Example Image"></p>
+
+<p>Disetiap table tambahkan 3 field berikut dengan type DateTime</p>
+
+<pre><code>created, updated, deleted
+</code></pre>
+
+<h4>
+<a name="3-generate-table" class="anchor" href="#3-generate-table"><span class="octicon octicon-link"></span></a>3). Generate Table</h4>
+
+<p>Generate Tabel master terlebih dahulu, dalam contoh ini berarti generate terlebih dahulu tabel program_studi. Setelah itu generate tabel mahasiswa.</p>
+
+<h4>
+<a name="4-konfigurasi-crud" class="anchor" href="#4-konfigurasi-crud"><span class="octicon octicon-link"></span></a>4). Konfigurasi CRUD</h4>
+
+<p><img src="http://i43.tinypic.com/1zbxs9v.jpg" alt="Program Studi Configuration Image"></p>
+
+<p><img src="http://i43.tinypic.com/2wqcpdx.jpg" alt="Mahasiswa Configuration Image"></p>
+
+<p><img src="http://i43.tinypic.com/20uvg9s.jpg" alt="Configuration Image"></p>
+
+<p>Setelah menekan tombol generate, maka akan muncul konfigurasi sederhana dari CRUD. Field Type adalah tipe dari inputan yang akan muncul pada saat menuju halaman add atau edit. Jika memilih tipe 'select' maka dibutuhkan Model yang akan menjadi acuan. Show on grid manjadi acuan apakah field tersebut akan ditampilkan di tabel grid atau tidak.</p>
+
+<h4>
+<a name="5-finish" class="anchor" href="#5-finish"><span class="octicon octicon-link"></span></a>5). Finish</h4>
+
+<p>Selesai, silahkan menuju alamat url /mahasiswa dan /program-studi.
+Untuk lebih jelasnya silahkan baca beberapa style perubahan yang ada di NipIgniter.</p>
+
+<hr><h3>
+<a name="next" class="anchor" href="#next"><span class="octicon octicon-link"></span></a>Next</h3>
+
+<p>Setelah mengetahui fitur CRUD, ada baiknya kita mengetahui juga beberapa perubahan style yang ada di NipIgniter.</p>
 
 <h3>
 <a name="1-controller" class="anchor" href="#1-controller"><span class="octicon octicon-link"></span></a>1. Controller</h3>
 
 <p>Penamaan controller sedikit diketatkan di NipIgniter. Aturannya adalah penamaan controller menggunakan camel case. Huruf depan besar, jika lebih dari dua kata maka digabung tanpa menggunakan spasi, kata kedua dan seterusnya dimulai dengan huruf besar. Akhiran diberi kata Controller. Berikut adalah contoh penamaan controller, file, dan penulisan URLnya.</p>
 
-<p>Nama controller : UserController,ProgramStudiController,JenisKelaminController
-Nama File   : UserController.php, ProgramStudiController.php, JenisKelaminController.php
-Penulisan URL   : /user, /program-studi, /jenis-kelamin</p>
+<p>Nama controller : </p>
+
+<pre><code>UserController,ProgramStudiController,JenisKelaminController
+</code></pre>
+
+<p>Nama File   : </p>
+
+<pre><code>UserController.php, ProgramStudiController.php, JenisKelaminController.php
+</code></pre>
+
+<p>Penulisan URL   : </p>
+
+<pre><code>/user, /program-studi, /jenis-kelamin
+</code></pre>
+
+<p>Bersambung...</p>
       </section>
     </div>
 
