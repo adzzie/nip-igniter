@@ -27,8 +27,7 @@ class {content:classname}Controller extends Nip_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("{content:classname}");
-		{content:loadmodel}
+		$this->load->model(array('{content:classname}'{content:loadmodel}));
 		$this->Model = new {content:classname}();
 	}
 

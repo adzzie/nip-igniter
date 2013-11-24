@@ -44,11 +44,9 @@ class CrudGenerator extends CI_Model {
 
 			$strLoadModel = "";
 			if(!empty($loadModel)){
-				$strLoadModel = "\$this->load->model(array(";
 				foreach($loadModel as $value){
-					$strLoadModel .= "'{$value}',";
+					$strLoadModel .= ",'{$value}'";
 				}
-				$strLoadModel .= "));";
 			}
 
 			$template = str_replace("{content:loadmodel}", $strLoadModel, $template);
