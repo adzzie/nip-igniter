@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ModelGenerator extends CI_Model {
+require_once(APPPATH."core/Nip_Model.php");
+
+class ModelGenerator extends Nip_Model {
 	public $pathFolderTheme;
 	public $pathModelTheme;
 	public $pathModelTarget;
@@ -14,6 +16,10 @@ class ModelGenerator extends CI_Model {
 	public function createModel($tableName = NULL, $isCrud = FALSE){
 		if($tableName){
 			$fields = $this->getFields($tableName);
+			if(is_null($fields)){
+				echo json_encode(array('status'=>0,'message'=>'Table is not exist'));
+				exit();
+			}
 			$primary = $this->getPrimary($fields);
 			$template = file_get_contents($this->pathFolderTheme.$this->pathModelTheme);
 			$className = $this->changeClassName($tableName);
@@ -22,7 +28,7 @@ class ModelGenerator extends CI_Model {
 			$validator = '';
 			$label = '';
 
-			$ignoreField = array($primary,"created","updated","deleted");
+			$ignoreField = array($primary,$this->createdField,$this->updatedField,$this->deletedField);
 
 			foreach($fields as $field){
 				$variable .= "public \${$field->name};\n\t";
@@ -72,7 +78,7 @@ class ModelGenerator extends CI_Model {
 		return NULL;
 	}
 	
-	protected function getPrimary($fields = array()){
+	public function getPrimary($fields = array()){
 		foreach($fields as $field){
 			if($field->primary_key==1){
 				return $field->name;
@@ -91,14 +97,17 @@ class ModelGenerator extends CI_Model {
 	public function generate($fileName, $content){
 		if(is_writable($this->pathModelTarget)){
 			if(!$file = fopen($fileName,'w')){
-				return FALSE;
+				echo json_encode(array('status'=>0,'message'=>"Failed to create file on $this->pathModelTarget."));
+				exit();
 			}
 			if(!fwrite($file, $content)){
-				return FALSE;
+				echo json_encode(array('status'=>0,'message'=>"Folder : $this->pathModelTarget is not writable."));
+				exit();
 			}
 			fclose($file);
 			return TRUE;
 		}
-		return NULL;
+		echo json_encode(array('status'=>0,'message'=>"Folder : $this->pathModelTarget is not writable."));
+		exit();
 	}
 }

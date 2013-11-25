@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class CrudGenerator extends CI_Model {
+require_once(APPPATH."core/Nip_Model.php");
+
+class CrudGenerator extends Nip_Model {
 	public $pathFolderTheme;
 	public $pathControllerTheme;
 	public $pathControllerTarget;
@@ -195,17 +197,20 @@ class CrudGenerator extends CI_Model {
 	}
 
 	public function generate($fileName, $content){
-		if(is_writable($this->pathControllerTarget)){
+		if(is_writable($this->pathControllerTarget) && is_writable($this->pathViewFolderTarget)){
 			if(!$file = fopen($fileName,'w')){
-				return FALSE;
+				echo json_encode(array('status'=>0,'message'=>"Failed to create file $fileName."));
+				exit();
 			}
 			if(!fwrite($file, $content)){
-				return FALSE;
+				echo json_encode(array('status'=>0,'message'=>"Failed to store content on $fileName"));
+				exit();
 			}
 			fclose($file);
 			return TRUE;
 		}
-		return NULL;
+		echo json_encode(array('status'=>0,'message'=>"Folder : $this->pathControllerTarget OR $this->pathViewFolderTarget  is not writable."));
+		exit();
 	}
 
 	public function createFolder($name){

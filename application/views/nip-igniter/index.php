@@ -1,20 +1,22 @@
 <?php if(!is_writable(APPPATH."controllers")):?>
 <div class="alert alert-danger">
-	Directory application/controllers is not writeable. Please change permission to 777.
+	Directory application/controllers is not writeable. Please change folder permission.
 </div>
 <?php endif;?>
 
 <?php if(!is_writable(APPPATH."models")):?>
 <div class="alert alert-danger">
-	Directory application/models is not writeable. Please change permission to 777.
+	Directory application/models is not writeable.  Please change folder permission.
 </div>
 <?php endif;?>
 
 <?php if(!is_writable(APPPATH."views")):?>
 <div class="alert alert-danger">
-	Directory application/views is not writeable. Please change permission to 777.
+	Directory application/views is not writeable.  Please change folder permission.
 </div>
 <?php endif;?>
+
+<div id="messageContainer" class="alert alert-danger hide"></div>
 
 <div class="row">
 	<div class="col-lg-4">
@@ -75,6 +77,8 @@ $(function(){
 						$("#myModalBody").html(rs.content);
 						$("#myModal").modal("show");
 					}
+				}else if(rs.status == 0){
+					$("#messageContainer").removeClass('hide').html(rs.message);
 				}
 				form.find('button.btn-primary').button('reset');
 			}

@@ -1,5 +1,5 @@
 <h4>Crud Configuration</h4>
-<div id="messageContainer" class="alert alert-info hide"></div>
+<div id="messageContainer1" class="alert alert-info hide"></div>
 
 <form role="form" action="<?php echo site_url("{$this->controller}/generate-crud");?>" id="formCrudGenerator" method="post">
   <input type="hidden" name="primary" value="<?php echo $primary;?>">
@@ -59,9 +59,13 @@ $(function(){
     $(this).ajaxSubmit({
       dataType : "json",
       success : function(rs){
-          $("#messageContainer").removeClass('hide').html(rs.message);
+        if(rs.status == 1){
+          $("#messageContainer1").removeClass('hide').html(rs.message);
           setTimeout('window.location.href="<?php echo site_url("nip-igniter");?>"',1000);
-          form.find('button.btn-primary').button('reset');
+        }else if(rs.status == 0){
+          $("#messageContainer").removeClass('hide').html(rs.message);
+        }
+        form.find('button.btn-primary').button('reset');
       }
     });
   });
