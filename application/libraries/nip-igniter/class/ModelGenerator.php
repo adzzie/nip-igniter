@@ -82,7 +82,7 @@ class ModelGenerator extends CI_Model {
 	}
 
 	public function changeClassName($name){
-		$array = explode("-", $name);
+		$array = explode("_", $name);
 		$arrayUpperCase = array_map("ucwords", $array);
 		$string = implode("", $arrayUpperCase);
 		return $string;
