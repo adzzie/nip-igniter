@@ -13,6 +13,7 @@ class Nip_Model extends CI_Model {
 	protected $messageArray = array();
 	protected $messageString;
 
+	//timestamp
 	protected $createdField = "created";
 	protected $updatedField = "updated";
 	protected $deletedField = "deleted";
@@ -245,14 +246,6 @@ class Nip_Model extends CI_Model {
 		return TRUE;
 	}
 
-	public function messageArray(){
-		return $this->messageArray;
-	}
-
-	public function messageString(){
-		return $this->messageString;
-	}
-
 	protected function getConf(){
 		$conf = array();
 
@@ -267,10 +260,6 @@ class Nip_Model extends CI_Model {
 		return $conf;
 	}
 
-	public function getSoftDeletes(){
-		return $this->softDeletes;
-	}
-
 	public function justTrash(){
 		$this->softDeletes = FALSE;
 		$this->justTrash = TRUE;
@@ -281,14 +270,6 @@ class Nip_Model extends CI_Model {
 		$this->softDeletes = FALSE;
 		$this->justTrash = FALSE;
 		return $this;	
-	}
-
-	public function getPrimary(){
-		return $this->primary;
-	}
-
-	public function getClassName(){
-		return $this->className;
 	}
 
 	public function belongsTo($modelName = NULL, $foreignKey = NULL){
@@ -334,4 +315,37 @@ class Nip_Model extends CI_Model {
 		}
 		return NULL;
 	}
+
+	public function messageArray(){
+		return $this->messageArray;
+	}
+
+	public function messageString(){
+		return $this->messageString;
+	}
+
+	public function getSoftDeletes(){
+		return $this->softDeletes;
+	}
+
+	public function getPrimary(){
+		return $this->primary;
+	}
+
+	public function getClassName(){
+		return $this->className;
+	}
+
+	public function getCreatedField(){
+		return $this->createdField;
+	}
+
+	public function getUpdatedField(){
+		return $this->updatedField;
+	}
+
+	public function getDeletedField(){
+		return $this->deletedField;
+	}
+	
 }
