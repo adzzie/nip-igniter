@@ -210,7 +210,12 @@ class Nip_Router extends CI_Router {
 		$array = explode("-", $name);
 		$array_upper_case = array_map("ucwords", $array);
 		$string = implode("", $array_upper_case);
-		$string = lcfirst($string);
+		$string = $this->lowerfirst($string);
 		return $string;
+	}
+
+	function lowerfirst($str){
+		$str[0] = strtolower($str[0]);
+        return (string)$str;
 	}
 }
