@@ -33,3 +33,11 @@ function debug($var){
 		print_r($var);
 	echo "</pre>";
 }
+
+if(false === function_exists('lcfirst'))
+{
+    function lcfirst( $str ) {
+        $str[0] = strtolower($str[0]);
+        return (string)$str;
+    }
+}
