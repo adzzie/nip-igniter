@@ -36,12 +36,13 @@
 
 <p>Hello, teman-teman programmer Codeigniter Framework.</p>
 
-<p>Project ini adalah project sederhana yang ditujukan bagi pengguna codeigniter framework yang ingin mencoba style berbeda dari style yang biasanya. Mungkin bisa dibilang style yang lebih 'modern'. :p</p>
+<p>Project ini adalah project sederhana yang ditujukan bagi pengguna codeigniter framework yang ingin mencoba <strong>style berbeda</strong> dari style yang biasanya. Mungkin bisa dibilang style yang lebih 'modern'. :p</p>
 
-<p>Di NipIgniter terdapat fitur tambahan yang sedikit meniru framework-framework yang ada. Seperti Yii Framework, CakePHP, Laravel. Tapi hanya sedikit tambahan saja. Soalnya saya masih newbie :D. 
-Salah satu fitur tambahannya adalah model ORM yang sekarang digunakan oleh banyak framework PHP. Contohnya saja, method first() untuk menyeleksi satu row dari database, all() untuk menyeleksi semua row di database dan lainnya. </p>
+<p>Di NipIgniter terdapat fitur tambahan yang sedikit meniru framework-framework yang ada. Seperti Yii Framework, CakePHP, Laravel. Tapi hanya sedikit tambahan saja. Soalnya saya masih newbie :D. </p>
 
-<p>Fitur penting yang ingin disajikan adalah generator CRUD. Kalau teman-teman pernah menggunakan Yii, pastinya fitur ini sudah familiar. Fitur ini men-generate table yang ada di database. Table tersebut dijadikan sebagai model, dan kemudian dari model yang terbentuk dibuatlah fungsi CRUD.</p>
+<p>Salah satu fitur tambahannya adalah <strong>model ORM</strong> yang sekarang digunakan oleh banyak framework PHP. Contohnya saja, method <code>first()</code> untuk menyeleksi satu row dari database, <code>all()</code> untuk menyeleksi semua row di database dan lainnya. </p>
+
+<p>Fitur penting yang ingin disajikan adalah <strong>generator CRUD</strong>. Kalau teman-teman pernah menggunakan Yii, pastinya fitur ini sudah familiar. Fitur ini men-generate table yang ada di database. Table tersebut dijadikan sebagai model, dan kemudian dari model yang terbentuk dibuatlah fungsi CRUD.</p>
 
 <p>Oke langsung saja. Langkah-langkah menggunakan Fitur CRUD adalah sebagai berikut.</p>
 
@@ -49,62 +50,112 @@ Salah satu fitur tambahannya adalah model ORM yang sekarang digunakan oleh banya
 <a name="crud-generator" class="anchor" href="#crud-generator"><span class="octicon octicon-link"></span></a>CRUD Generator</h2>
 
 <h4>
-<a name="1-pertama-kali-memasuki-halaman-utama-akan-terlihat-halaman-berikut" class="anchor" href="#1-pertama-kali-memasuki-halaman-utama-akan-terlihat-halaman-berikut"><span class="octicon octicon-link"></span></a>1). Pertama kali memasuki halaman utama, akan terlihat halaman berikut</h4>
+<a name="1-konfigurasi" class="anchor" href="#1-konfigurasi"><span class="octicon octicon-link"></span></a>1). Konfigurasi</h4>
 
-<p>Sebelumnya konfigurasikan dulu config database di</p>
+<p>Download source terlebih dahulu. Konfigurasikan file config berikut ini sesuai dengan pengaturan kalian masing-masing.. Sesuaikanlah.. :D</p>
 
 <pre><code>application/config/database.php
-</code></pre>
 
-<p>dan config base_url di </p>
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'test';
+$db['default']['dbdriver'] = 'mysql';
+</code></pre>
 
 <pre><code>application/config/config.php
-</code></pre>
 
-<p><img src="http://i44.tinypic.com/ei2vdy.jpg" alt="Home Page NipIgniter Image"></p>
-
-<p>Hanya ada 2 inputan di form. Inputan pertama adalah nama tabel di database,
-nama tabel harus direkomendasikan menggunakan huruf kecil, jika lebih dari satu kata maka digabungkan menggunakan _ (underscore).</p>
-
-<pre><code>user, jenis_kelamin, artikel, kategori_artikel
+$config['base_url'] = 'http://localhost/nip-igniter/';
 </code></pre>
 
 <h4>
-<a name="2-contoh-tabel-yang-akan-di-generate" class="anchor" href="#2-contoh-tabel-yang-akan-di-generate"><span class="octicon octicon-link"></span></a>2). Contoh Tabel yang akan di generate</h4>
+<a name="2-sample-database" class="anchor" href="#2-sample-database"><span class="octicon octicon-link"></span></a>2). Sample Database</h4>
 
-<p><img src="http://i39.tinypic.com/25i7pmf.jpg" alt="Table For Example Image"></p>
+<p>Berikut adalah contoh sample database yang simple untuk tutorial pertama dari NipIgniter.
+Ada beberapa aturan tambahan pada struktur database. Ditiap tabel <strong>harus</strong> ditambahkan 3 field berikut.
+Penamaan database huruf kecil semua jika lebih dari satu kata dipisahkan dengan _ (underscore).</p>
 
-<p>Disetiap table tambahkan 3 field berikut dengan type DateTime</p>
-
-<pre><code>created, updated, deleted
+<pre><code> `created` datetime NOT NULL,
+ `updated` datetime DEFAULT NULL,
+ `deleted` datetime DEFAULT NULL,
 </code></pre>
 
 <p><strong>Di struktur tablenya updated dan deleted boleh null.</strong></p>
 
-<h4>
-<a name="3-generate-table" class="anchor" href="#3-generate-table"><span class="octicon octicon-link"></span></a>3). Generate Table</h4>
+<p><img src="http://i39.tinypic.com/25i7pmf.jpg" alt="Table For Example Image"></p>
 
-<p>Generate Tabel master terlebih dahulu, dalam contoh ini berarti generate terlebih dahulu tabel program_studi. Setelah itu generate tabel mahasiswa.</p>
+<h4>
+<a name="3-form-generator" class="anchor" href="#3-form-generator"><span class="octicon octicon-link"></span></a>3). Form Generator</h4>
+
+<p>Form berikut adalah tampilan utama dari CRUD Generator.</p>
+
+<p><img src="http://i44.tinypic.com/ei2vdy.jpg" alt="Home Page NipIgniter Image"></p>
+
+<h4>
+<a name="4-generate-table" class="anchor" href="#4-generate-table"><span class="octicon octicon-link"></span></a>4). Generate Table</h4>
+
+<p>Urutan generate tabel adalah dimulai dari tabel master terlebih dahulu, dalam contoh ini berarti generate terlebih dahulu tabel program_studi. Setelah itu generate tabel mahasiswa.</p>
 
 <h4>
 <a name="4-konfigurasi-crud" class="anchor" href="#4-konfigurasi-crud"><span class="octicon octicon-link"></span></a>4). Konfigurasi CRUD</h4>
 
+<p>Setelah tombol generate ditekan, akan muncul konfigurasi sederhana dari tabel yang digenerate.
+Di konfigurasi itu, akan muncul pilihan <strong>Field Type</strong> yang terdiri dari 'Text', 'Textarea', 'Email', 'Password' dan 'Select'. Field type ini menunjukkan bagaimana inputan <strong>HTML</strong> akan dibuat.</p>
+
+<p>Show on Grid menunjukkan apakah field tersebut akan muncul pada saat Grid List Row (nanti akan ada screenshootnya).</p>
+
+<h5>
+<a name="tabel-program-studi" class="anchor" href="#tabel-program-studi"><span class="octicon octicon-link"></span></a>Tabel Program Studi</h5>
+
 <p><img src="http://i43.tinypic.com/1zbxs9v.jpg" alt="Program Studi Configuration Image"></p>
+
+<p>Pilih 'Text' untuk 'Field Type' dari 'field' prodi.</p>
+
+<h5>
+<a name="tabel-mahasiswa" class="anchor" href="#tabel-mahasiswa"><span class="octicon octicon-link"></span></a>Tabel Mahasiswa</h5>
 
 <p><img src="http://i43.tinypic.com/2wqcpdx.jpg" alt="Mahasiswa Configuration Image"></p>
 
-<p><img src="http://i43.tinypic.com/bfi5pe.jpg" alt="Configuration Image"></p>
+<p>Isikan 'Field Type' seperti contoh diatas. Ada konfigurasi field yang berbeda di tabel mahasiswa.
+Field prodi_id pada saat Create dan Update mengacu pada Tabel lain. 'Model name' dapat diisikan dengan Model 'ProgramStudi', hal ini dikarenakan tabel program_studi pada database akan membentuk Model dengan nama 'ProgramStudi' (penamaan model akan dijelaskan di dokumentasi setelah ini). 'Model's Primary Key' adalah primary key dari Model ProgramStudi. Inputan ini diisi dengan 'id'. Dan yang terakhir adalah nama label/ field dari tabel program_studi yang akan ditampilkan pada tag 'select' HTML. Dapat diisi dengan 'prodi'.</p>
 
-<p>Setelah menekan tombol generate, maka akan muncul konfigurasi sederhana dari CRUD. Field Type adalah tipe dari inputan yang akan muncul pada saat menuju halaman add atau edit. Jika memilih tipe 'select' maka dibutuhkan Model yang akan menjadi acuan. Show on grid manjadi acuan apakah field tersebut akan ditampilkan di tabel grid atau tidak.</p>
+<pre><code>&lt;select name="prodi_id"&gt;
+  &lt;option value="primary model"&gt; Label &lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+
+<p><img src="http://i43.tinypic.com/bfi5pe.jpg" alt="Configuration Image"></p>
 
 <h4>
 <a name="5-finish" class="anchor" href="#5-finish"><span class="octicon octicon-link"></span></a>5). Finish</h4>
 
-<p>Selesai, silahkan menuju alamat url /mahasiswa dan /program-studi. URL sesuai dengan nama controller, hurufnya kecil semua dipisahkan ama tanda (-) strip, tapi kata controller tidak disertakan.
-Untuk lebih jelasnya silahkan baca beberapa style perubahan yang ada di NipIgniter.</p>
+<p><strong>Selesai</strong>. 
+Kunjungi link base_url/mahasiswa dan base_url/program-studi. Pola url sedikit berbeda dengan style CodeIgniter yang biasanya. Lihat dokumentasi di bawah.</p>
 
-<h3>
-<a name="next" class="anchor" href="#next"><span class="octicon octicon-link"></span></a>Next</h3>
+<p>Berikut adalah tampilan CRUD untuk mahasiswa.</p>
+
+<p><strong>Grid List Row</strong></p>
+
+<p><img src="http://i41.tinypic.com/2i6i1kz.jpg" alt="Grid List Row"></p>
+
+<p><strong>Add Row</strong></p>
+
+<p><img src="http://i40.tinypic.com/11skoib.jpg" alt="Add Row"></p>
+
+<p><strong>Update Row</strong></p>
+
+<p><img src="http://i43.tinypic.com/154vsb9.jpg" alt="Update Row"></p>
+
+<p><strong>Delete Row</strong></p>
+
+<p><img src="http://i39.tinypic.com/168wpio.jpg" alt="Delete Row"></p>
+
+<p><strong>Trash List</strong></p>
+
+<p><img src="http://i44.tinypic.com/20az6g8.jpg" alt="Trash List"></p>
+
+<h1>
+<a name="advance" class="anchor" href="#advance"><span class="octicon octicon-link"></span></a>Advance</h1>
 
 <p>Setelah mengetahui fitur CRUD, ada baiknya kita mengetahui juga beberapa perubahan style yang ada di NipIgniter.</p>
 
